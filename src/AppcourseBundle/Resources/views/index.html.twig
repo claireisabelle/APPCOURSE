@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block title %} {% endblock %}</title>
+	
+	<meta charset="UTF-8">
+	<meta name="description" content="Application de liste de courses">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" />
+	{% stylesheets 'css/*' filter='cssrewrite' %}
+		<link rel="stylesheet" href="{{ asset_url }}" />
+	{% endstylesheets %}
+</head>
+<body>
+
+<div class="container">
+
+	<header class="card-panel grey lighten-2">
+		<div class="row">
+			<div class="col-xs-12">
+				<p class="right-align"><a class="waves-effect waves-light btn"><i class="material-icons left">code</i>Claire APP</a></p>
+				<p><i class="material-icons left">shopping_cart</i><strong>APPCOURSE</strong> - L'application pour faire sa liste de course...</p>
+			</div>
+		</div>
+	</header>
+
+	<div class="row">
+		<div class="col-sm-2">
+			<p class="center-align bouton"><a class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">add</i></a></p>
+
+			<div class="parametres">
+				<p><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Paramètres</p>
+
+				<ul>
+					<li><span class="glyphicon glyphicon-apple" aria-hidden="true"></span> Les produits</li>
+					<li><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Les rayons</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="col-sm-10">
+			{% block body %}
+
+			
+			{% endblock %}
+
+		</div>
+
+	</div>
+
+
+</div><!-- Fin du container -->
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+.parametres
+{
+	padding-top: 50px;
+}
+
+.parametres p
+{
+	font-size: 1.2em;
+	font-weight: bolder;
+}
+
+.parametres li
+{
+	padding-bottom: 10px;
+}
+
+.bouton
+{
+	padding-top: 30px;
+}
+
+h1
+{
+	font-size: 2em !important;
+	border-bottom: solid 1px #4db6ac;
+	padding-bottom: 15px;
+}

@@ -1,0 +1,9 @@
+appcourse_homepage:
+    path:     /
+    defaults: { _controller: AppcourseBundle:Default:index }
+
+appcourse_view_list:
+    path:    /{id}
+    defaults: { _controller: AppcourseBundle:Default:view }
+    requirements:
+        id: \d+
