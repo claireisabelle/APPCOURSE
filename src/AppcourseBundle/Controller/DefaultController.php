@@ -3,7 +3,16 @@
 namespace AppcourseBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+use AppcourseBundle\Entity\Liste;
+use AppcourseBundle\Entity\Produit;
+use AppcourseBundle\Entity\Rayon;
+
+use AppcourseBundle\Form\Type\RayonType;
 
 
 class DefaultController extends Controller
@@ -11,7 +20,7 @@ class DefaultController extends Controller
 
     public function indexAction()
     {
-        return $this->render('AppcourseBundle:listing:listing.html.twig');
+        return $this->render('AppcourseBundle:liste:index.html.twig');
     }
 
 
@@ -39,44 +48,72 @@ class DefaultController extends Controller
 
 
 
-    public function produitsIndexAction()
+    public function produitIndexAction()
     {
     	// Permet de visualiser l'ensemble des produits
     }
 
-    public function produitsAddAction()
+    public function produitAddAction()
     {
     	// Permet d'ajouter un produit 
     }
 
-    public function produitsEditAction($id)
+    public function produitEditAction($id)
     {
     	// Permet d'éditer un produit
     }
 
-    public function produitsDeleteAction($id)
+    public function produitDeleteAction($id)
     {
     	// Permet de supprimer un produit
     }
 
 
 
-    public function rayonsIndexAction()
+    public function rayonIndexAction()
     {
     	// Permet de visualiser l'ensemble des rayons
+
+        $em = $this->getDoctrine()->getManager();
+
+        $listRayons = $em->getRepository('AppcourseBundle:Rayon')->findBy(array(), array('nom' => 'ASC'));
+
+        return $this->render('AppcourseBundle:rayon:index.html.twig', array('listRayons' => $listRayons));
     }
 
-    public function rayonsAddAction()
+    public function rayonAddAction(Request $request)
     {
     	// Permet d'ajouter un rayon
+
+        // On crée un nouveau rayon
+        $rayon = new Rayon();
+
+        // On appelle le formulaire créé dans RayonType
+        $form = $this->createForm(RayonType::class, $rayon);
+        $form->handleRequest($request);
+
+        // Si le formulaire est valide, on l'enregistre
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($rayon);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('success', 'Le rayon a bien été ajouté.');
+
+            return $this->redirectToRoute('appcourse_index_rayon');
+        }
+
+        // Sinon, on renvoie vers la page de création avec la formulaire
+        return $this->render('AppcourseBundle:rayon:add.html.twig', array('form' => $form->createView(),));
     }
 
-    public function rayonsEditAction($id)
+    public function rayonEditAction($id)
     {
     	// Permet d'éditer un rayon
     }
 
-    public function rayonsDeleteAction($id)
+    public function rayonDeleteAction($id)
     {
     	// Permet de supprimer un rayon
     }

@@ -1,0 +1,28 @@
+{% extends "AppcourseBundle::index.html.twig" %}
+
+{% block title %}
+Ajouter un rayon à la base de données
+{% endblock %}
+
+{% block body %}
+<h1><span class="glyphicon glyphicon-add" aria-hidden="true"></span> Ajouter un rayon dans la base</h1>
+
+<table class="table table-striped">
+ 
+
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+	<p>{{ form_label(form.nom, 'Nom du rayon', {'attr': {'class': 'validate'}}) }}
+	{{ form_widget(form.nom, {'attr': {'placeholder': 'Inscrire le nom du rayon'}}) }}</p>
+
+	{{ form_widget(form.save) }}
+
+{{ form_end(form) }}
+
+
+
+
+</table>
+
+{% endblock %}

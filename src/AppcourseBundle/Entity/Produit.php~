@@ -68,28 +68,5 @@ class Produit
     {
         return $this->nom;
     }
-
-    /**
-     * Set rayon
-     *
-     * @param \AppcourseBundle\Entity\Rayon $rayon
-     *
-     * @return Produit
-     */
-    public function setRayon(\AppcourseBundle\Entity\Rayon $rayon = null)
-    {
-        $this->rayon = $rayon;
-
-        return $this;
-    }
-
-    /**
-     * Get rayon
-     *
-     * @return \AppcourseBundle\Entity\Rayon
-     */
-    public function getRayon()
-    {
-        return $this->rayon;
-    }
 }
+

@@ -5,12 +5,12 @@ namespace AppcourseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * liste
+ * Liste
  *
  * @ORM\Table(name="cb_liste")
- * @ORM\Entity(repositoryClass="AppcourseBundle\Repository\listeRepository")
+ * @ORM\Entity(repositoryClass="AppcourseBundle\Repository\ListeRepository")
  */
-class liste
+class Liste
 {
     /**
      * @var int
@@ -94,4 +94,3 @@ class liste
         return $this->date;
     }
 }
-

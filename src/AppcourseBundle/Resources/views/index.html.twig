@@ -10,6 +10,8 @@
 	<link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css" />
+
+
 	{% stylesheets 'css/*' filter='cssrewrite' %}
 		<link rel="stylesheet" href="{{ asset_url }}" />
 	{% endstylesheets %}
@@ -21,7 +23,7 @@
 	<header class="card-panel grey lighten-2">
 		<div class="row">
 			<div class="col-xs-12">
-				<p class="right-align"><a class="waves-effect waves-light btn"><i class="material-icons left">code</i>Claire APP</a></p>
+				<p class="right-align"><a class="waves-effect waves-light btn" href="{{ path('appcourse_homepage') }}"><i class="material-icons left">code</i>Claire APP</a></p>
 				<p><i class="material-icons left">shopping_cart</i><strong>APPCOURSE</strong> - L'application pour faire sa liste de course...</p>
 			</div>
 		</div>
@@ -36,7 +38,7 @@
 
 				<ul>
 					<li><span class="glyphicon glyphicon-apple" aria-hidden="true"></span> Les produits</li>
-					<li><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Les rayons</li>
+					<li><a href="{{ path('appcourse_index_rayon') }}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Les rayons</a></li>
 				</ul>
 			</div>
 		</div>

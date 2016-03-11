@@ -5,12 +5,12 @@ namespace AppcourseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Produit
+ * Liste
  *
- * @ORM\Table(name="cb_produit")
- * @ORM\Entity(repositoryClass="AppcourseBundle\Repository\ProduitRepository")
+ * @ORM\Table(name="cb_liste")
+ * @ORM\Entity(repositoryClass="AppcourseBundle\Repository\ListeRepository")
  */
-class Produit
+class Liste
 {
     /**
      * @var int
@@ -28,11 +28,12 @@ class Produit
      */
     private $nom;
 
-
     /**
-    *@ORM\ManyToOne(targetEntity="Rayon", inversedBy="produits")
-    */
-    protected $rayon;
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime")
+     */
+    private $date;
 
 
     /**
@@ -50,7 +51,7 @@ class Produit
      *
      * @param string $nom
      *
-     * @return produit
+     * @return liste
      */
     public function setNom($nom)
     {
@@ -70,26 +71,27 @@ class Produit
     }
 
     /**
-     * Set rayon
+     * Set date
      *
-     * @param \AppcourseBundle\Entity\Rayon $rayon
+     * @param \DateTime $date
      *
-     * @return Produit
+     * @return liste
      */
-    public function setRayon(\AppcourseBundle\Entity\Rayon $rayon = null)
+    public function setDate($date)
     {
-        $this->rayon = $rayon;
+        $this->date = $date;
 
         return $this;
     }
 
     /**
-     * Get rayon
+     * Get date
      *
-     * @return \AppcourseBundle\Entity\Rayon
+     * @return \DateTime
      */
-    public function getRayon()
+    public function getDate()
     {
-        return $this->rayon;
+        return $this->date;
     }
 }
+

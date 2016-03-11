@@ -4,13 +4,15 @@ namespace AppcourseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
- * rayon
+ * Rayon
  *
  * @ORM\Table(name="cb_rayon")
- * @ORM\Entity(repositoryClass="AppcourseBundle\Repository\rayonRepository")
+ * @ORM\Entity(repositoryClass="AppcourseBundle\Repository\RayonRepository")
  */
-class rayon
+class Rayon
 {
     /**
      * @var int
@@ -27,6 +29,19 @@ class rayon
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
+
+
+
+    /**
+    * @ORM\OneToMany(targetEntity="Produit", mappedBy="rayon")
+    */
+    protected $produits;
+
+
+    public function __construct()
+    {
+        $this->produits = new ArrayCollection();
+    }
 
 
     /**
@@ -62,5 +77,38 @@ class rayon
     {
         return $this->nom;
     }
-}
 
+    /**
+     * Add produit
+     *
+     * @param \AppcourseBundle\Entity\Produit $produit
+     *
+     * @return Rayon
+     */
+    public function addProduit(\AppcourseBundle\Entity\Produit $produit)
+    {
+        $this->produits[] = $produit;
+
+        return $this;
+    }
+
+    /**
+     * Remove produit
+     *
+     * @param \AppcourseBundle\Entity\Produit $produit
+     */
+    public function removeProduit(\AppcourseBundle\Entity\Produit $produit)
+    {
+        $this->produits->removeElement($produit);
+    }
+
+    /**
+     * Get produits
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProduits()
+    {
+        return $this->produits;
+    }
+}

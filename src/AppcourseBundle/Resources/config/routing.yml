@@ -7,3 +7,12 @@ appcourse_view_list:
     defaults: { _controller: AppcourseBundle:Default:view }
     requirements:
         id: \d+
+
+appcourse_index_rayon:
+    path:    /rayon
+    defaults: { _controller: AppcourseBundle:Default:rayonIndex }
+
+
+appcourse_add_rayon:
+    path:    /rayon/add 
+    defaults: { _controller: AppcourseBundle:Default:rayonAdd }

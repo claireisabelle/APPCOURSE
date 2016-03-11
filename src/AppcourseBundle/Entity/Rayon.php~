@@ -4,13 +4,15 @@ namespace AppcourseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 /**
- * Produit
+ * Rayon
  *
- * @ORM\Table(name="cb_produit")
- * @ORM\Entity(repositoryClass="AppcourseBundle\Repository\ProduitRepository")
+ * @ORM\Table(name="cb_rayon")
+ * @ORM\Entity(repositoryClass="AppcourseBundle\Repository\RayonRepository")
  */
-class Produit
+class Rayon
 {
     /**
      * @var int
@@ -29,10 +31,17 @@ class Produit
     private $nom;
 
 
+
     /**
-    *@ORM\ManyToOne(targetEntity="Rayon", inversedBy="produits")
+    * @ORM\OneToMany(targetEntity="Produit", mappedBy="rayon")
     */
-    protected $rayon;
+    protected $produits;
+
+
+    public function __construct()
+    {
+        $this->produits = new ArrayCollection();
+    }
 
 
     /**
@@ -50,7 +59,7 @@ class Produit
      *
      * @param string $nom
      *
-     * @return produit
+     * @return rayon
      */
     public function setNom($nom)
     {
@@ -68,28 +77,5 @@ class Produit
     {
         return $this->nom;
     }
-
-    /**
-     * Set rayon
-     *
-     * @param \AppcourseBundle\Entity\Rayon $rayon
-     *
-     * @return Produit
-     */
-    public function setRayon(\AppcourseBundle\Entity\Rayon $rayon = null)
-    {
-        $this->rayon = $rayon;
-
-        return $this;
-    }
-
-    /**
-     * Get rayon
-     *
-     * @return \AppcourseBundle\Entity\Rayon
-     */
-    public function getRayon()
-    {
-        return $this->rayon;
-    }
 }
+
