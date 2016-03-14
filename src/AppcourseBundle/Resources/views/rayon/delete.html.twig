@@ -1,0 +1,24 @@
+{% extends "AppcourseBundle::index.html.twig" %}
+
+{% block title %}
+Supprimer un rayon existant à la base de données
+{% endblock %}
+
+{% block body %}
+<h1><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Supprimer un rayon dans la base</h1>
+
+<div class="alert alert-danger">Souhaitez-vous vraiment supprimer le rayon {{ rayon.nom }} ?
+
+	<form method="post" action="{{ path('appcourse_delete_rayon', {'id': rayon.id}) }}">
+
+	<input type="submit" value="Supprimer le rayon" />
+
+	{{ form_rest(form) }}
+
+	</form>
+
+</div>
+
+<p><a href="{{ path('appcourse_index_rayon') }}">Annuler et revenir à la page précédente</a></p>
+
+{% endblock %}

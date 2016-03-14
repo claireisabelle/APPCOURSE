@@ -77,5 +77,38 @@ class Rayon
     {
         return $this->nom;
     }
-}
 
+    /**
+     * Add produit
+     *
+     * @param \AppcourseBundle\Entity\Produit $produit
+     *
+     * @return Rayon
+     */
+    public function addProduit(\AppcourseBundle\Entity\Produit $produit)
+    {
+        $this->produits[] = $produit;
+
+        return $this;
+    }
+
+    /**
+     * Remove produit
+     *
+     * @param \AppcourseBundle\Entity\Produit $produit
+     */
+    public function removeProduit(\AppcourseBundle\Entity\Produit $produit)
+    {
+        $this->produits->removeElement($produit);
+    }
+
+    /**
+     * Get produits
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProduits()
+    {
+        return $this->produits;
+    }
+}

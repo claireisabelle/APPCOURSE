@@ -3,6 +3,7 @@
 namespace AppcourseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Produit
@@ -33,6 +34,17 @@ class Produit
     *@ORM\ManyToOne(targetEntity="Rayon", inversedBy="produits")
     */
     protected $rayon;
+
+    /**
+    *@ORM\ManyToMany(targetEntity="Liste", inversedBy="produits")
+    */
+    protected $listes;
+
+
+    public function __construct()
+    {
+        $this->listes = new ArrayCollection;
+    }
 
 
     /**
@@ -68,5 +80,28 @@ class Produit
     {
         return $this->nom;
     }
-}
 
+    /**
+     * Set rayon
+     *
+     * @param \AppcourseBundle\Entity\Rayon $rayon
+     *
+     * @return Produit
+     */
+    public function setRayon(\AppcourseBundle\Entity\Rayon $rayon = null)
+    {
+        $this->rayon = $rayon;
+
+        return $this;
+    }
+
+    /**
+     * Get rayon
+     *
+     * @return \AppcourseBundle\Entity\Rayon
+     */
+    public function getRayon()
+    {
+        return $this->rayon;
+    }
+}

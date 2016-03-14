@@ -13,7 +13,7 @@ class RayonType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class)
-            ->add('save', SubmitType::class, array('label' => 'Ajouter le rayon'))
+            ->add('save', SubmitType::class, array('label' => 'Valider le rayon'))
         ;
     }
 }

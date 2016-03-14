@@ -16,3 +16,16 @@ appcourse_index_rayon:
 appcourse_add_rayon:
     path:    /rayon/add 
     defaults: { _controller: AppcourseBundle:Default:rayonAdd }
+
+appcourse_edit_rayon:
+    path:    /rayon/edit/{id}
+    defaults: { _controller: AppcourseBundle:Default:rayonEdit }
+    requirements:
+        id: \d+
+
+appcourse_delete_rayon:
+    path:    /rayon/delete/{id}
+    defaults: { _controller: AppcourseBundle:Default:rayonDelete }
+    requirements:
+        id: \d+
+

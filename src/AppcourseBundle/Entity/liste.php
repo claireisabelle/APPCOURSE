@@ -3,6 +3,7 @@
 namespace AppcourseBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Liste
@@ -34,6 +35,18 @@ class Liste
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
+
+
+    /**
+    * @ORM\ManyToMany(targetEntity="Produit", mappedBy="listes")
+    */
+    protected $produits;
+
+
+    public function __construct()
+    {
+        $this->produits = new ArrayCollection;
+    }
 
 
     /**
@@ -92,5 +105,39 @@ class Liste
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Add produit
+     *
+     * @param \AppcourseBundle\Entity\Produit $produit
+     *
+     * @return Liste
+     */
+    public function addProduit(\AppcourseBundle\Entity\Produit $produit)
+    {
+        $this->produits[] = $produit;
+
+        return $this;
+    }
+
+    /**
+     * Remove produit
+     *
+     * @param \AppcourseBundle\Entity\Produit $produit
+     */
+    public function removeProduit(\AppcourseBundle\Entity\Produit $produit)
+    {
+        $this->produits->removeElement($produit);
+    }
+
+    /**
+     * Get produits
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getProduits()
+    {
+        return $this->produits;
     }
 }
