@@ -38,7 +38,7 @@ class Liste
 
 
     /**
-    * @ORM\ManyToMany(targetEntity="Produit", mappedBy="listes")
+    * @ORM\ManyToMany(targetEntity="Produit", inversedBy="listes", cascade={"persist"})
     */
     protected $produits;
 
@@ -46,6 +46,7 @@ class Liste
     public function __construct()
     {
         $this->produits = new ArrayCollection;
+        $this->date = new \Datetime();
     }
 
 

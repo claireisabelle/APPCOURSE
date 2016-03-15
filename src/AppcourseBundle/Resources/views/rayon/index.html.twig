@@ -21,6 +21,7 @@ Listing des rayons
 					<th>RAYONS</th>
 					<th></th>
 					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 
@@ -28,6 +29,7 @@ Listing des rayons
 				{% for rayon in listRayons %}
 				<tr>
 					<th>{{ rayon.nom }}</th>
+					<th>{{ rayon.nbProduits }}</th>
 					<td><a title="Editer" class="label label-primary" href="{{ path('appcourse_edit_rayon', {'id': rayon.id}) }}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
 					<td><a title="Supprimer" class="label label-danger" href="{{ path('appcourse_delete_rayon', {'id': rayon.id}) }}"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
 				</tr>

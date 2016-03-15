@@ -5,6 +5,8 @@ namespace AppcourseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Produit
  *
@@ -31,14 +33,17 @@ class Produit
 
 
     /**
-    *@ORM\ManyToOne(targetEntity="Rayon", inversedBy="produits")
+    * @ORM\ManyToOne(targetEntity="Rayon", inversedBy="produits")
+    * @Assert\NotBlank()
     */
     protected $rayon;
 
     /**
-    *@ORM\ManyToMany(targetEntity="Liste", inversedBy="produits")
+    * @ORM\ManyToMany(targetEntity="Liste", inversedBy="produits")
     */
     protected $listes;
+
+    
 
 
     public function __construct()
@@ -103,5 +108,39 @@ class Produit
     public function getRayon()
     {
         return $this->rayon;
+    }
+
+    /**
+     * Add liste
+     *
+     * @param \AppcourseBundle\Entity\Liste $liste
+     *
+     * @return Produit
+     */
+    public function addListe(\AppcourseBundle\Entity\Liste $liste)
+    {
+        $this->listes[] = $liste;
+
+        return $this;
+    }
+
+    /**
+     * Remove liste
+     *
+     * @param \AppcourseBundle\Entity\Liste $liste
+     */
+    public function removeListe(\AppcourseBundle\Entity\Liste $liste)
+    {
+        $this->listes->removeElement($liste);
+    }
+
+    /**
+     * Get listes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getListes()
+    {
+        return $this->listes;
     }
 }

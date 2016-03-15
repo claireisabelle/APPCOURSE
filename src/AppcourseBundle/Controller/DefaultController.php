@@ -14,6 +14,7 @@ use AppcourseBundle\Entity\Rayon;
 
 use AppcourseBundle\Form\Type\RayonType;
 use AppcourseBundle\Form\Type\ProduitType;
+use AppcourseBundle\Form\Type\ListeType;
 
 
 class DefaultController extends Controller
@@ -21,28 +22,55 @@ class DefaultController extends Controller
 
     public function indexAction()
     {
-        return $this->render('AppcourseBundle:liste:index.html.twig');
+        
+        $em = $this->getDoctrine()->getManager();
+
+        $listes = $em->getRepository('AppcourseBundle:Liste')->findBy(array(), array('date' => 'DESC'));
+
+        return $this->render('AppcourseBundle:liste:index.html.twig', array('listes' => $listes));
     }
 
 
-    public function viewAction($id)
+    public function viewAction(Request $request, $id)
     {
     	// Permet de visualiser une liste de courses selon son $id
 
     	return $this->render('AppcourseBundle:index.html.twig');
     }
 
-    public function addAction()
+    public function addAction(Request $request)
     {
     	// Permet d'ajouter une liste de courses
+
+        // On crée une nouvelle liste de courses
+        $liste = new Liste();
+
+        // On appelle le formulaire
+        $form = $this->createForm(ListeType::class, $liste);
+        $form->handleRequest($request);
+
+        // Si le formulaire a bien été soumis, on enregistre la liste
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($liste);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('success', 'La liste a bien été enregistrée.');
+
+            return $this->redirectToRoute('appcourse_homepage');
+        }
+
+        // Sinon, on renvoie vers la page du formulaire
+        return $this->render('AppcourseBundle:liste:add.html.twig', array('form' => $form->createView()));
     }
 
-    public function editAction($id)
+    public function editAction(Request $request, $id)
     {
     	// Permet d'éditer une liste de courses
     }
 
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
     	// Permet de supprimer une liste de courses
     }
@@ -88,14 +116,68 @@ class DefaultController extends Controller
 
     }
 
-    public function produitEditAction($id)
+    public function produitEditAction(Request $request, $id)
     {
     	// Permet d'éditer un produit
+
+        $em = $this->getDoctrine()->getManager();
+
+        $produit = $em->getRepository('AppcourseBundle:Produit')->find($id);
+
+        // Si le produit n'existe pas, on crée un message d'erreur
+        if(!$produit)
+        {
+            throw $this->createNotFoundException('Le produit n° '.$id.' est inconnu.');
+        }
+
+        $form = $this->createForm(ProduitType::class, $produit);
+        $form->handleRequest($request);
+
+        // Si le formulaire a bien été soumis et est valide, on enregistre la modification
+        if($form->isSubmitted() && $form->isValid())
+        {
+            // Pas besoin de persister car Doctrine connait déjà le produit
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('success', 'Le produit a bien été mis à jour.');
+
+            return $this->redirectToRoute('appcourse_index_produit');
+        }
+
+        // Sinon, on affiche le formulaire d'édition
+        return $this->render('AppcourseBundle:produit:edit.html.twig', array('form' => $form->createView(), 'produit' => $produit));
+
     }
 
-    public function produitDeleteAction($id)
+    public function produitDeleteAction(Request $request, $id)
     {
     	// Permet de supprimer un produit
+
+        $em = $this->getDoctrine()->getManager();
+
+        $produit = $em->getRepository('AppcourseBundle:Produit')->find($id);
+
+        if(!$produit)
+        {
+            throw $this->createNotFoundException('Le produit n° '.$id.' est inconnu.');
+        }
+
+        // On crée un formulaire vide avec juste le token automatique
+        $form = $this->createFormBuilder()->getForm();
+
+        // Si la confirmation a bien été faite par le formulaire vide, on supprime le produit
+        if($form->handleRequest($request)->isValid())
+        {
+            $em->remove($produit);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('success', 'Le produit a bien été supprimé.');
+
+            return $this->redirectToRoute('appcourse_index_produit');
+        }
+
+        // Sinon on affiche la page de confirmation
+        return $this->render('AppcourseBundle:produit:delete.html.twig', array('form' => $form->createView(), 'produit' => $produit));
     }
 
 
@@ -157,7 +239,7 @@ class DefaultController extends Controller
         // Si le formulaire d'édition a bien été soumis et est valide, on enregistre la modification
         if($form->isSubmitted() && $form->isValid())
         {
-            $em->persist($rayon);
+            // Pas besoin de persister car Doctrine connait déjà le rayon
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('success', 'Le rayon a bien été modifié.');

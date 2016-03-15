@@ -1,0 +1,27 @@
+{% extends "AppcourseBundle::index.html.twig" %}
+
+{% block title %}
+Supprimer un produit existant de la base de données
+{% endblock %}
+
+{% block body %}
+<h1><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Supprimer un produit dans la base</h1>
+
+
+
+<div class="alert alert-danger"><p>Souhaitez-vous vraiment supprimer le produit {{ produit.nom }} ?</p>
+
+	<form method="post" action="{{ path('appcourse_delete_produit', {'id': produit.id}) }}">
+
+	<input type="submit" value="Supprimer le produit" />
+
+	{{ form_rest(form) }}
+
+	</form>
+
+</div>
+
+
+<p><a href="{{ path('appcourse_index_produit') }}">Annuler et revenir à la page précédente</a></p>
+
+{% endblock %}

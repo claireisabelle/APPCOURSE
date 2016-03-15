@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="cb_rayon")
  * @ORM\Entity(repositoryClass="AppcourseBundle\Repository\RayonRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Rayon
 {
@@ -36,6 +37,11 @@ class Rayon
     * @ORM\OneToMany(targetEntity="Produit", mappedBy="rayon")
     */
     protected $produits;
+
+    /**
+    * @ORM\Column(name="nb_produits", type="integer")
+    */
+    private $nbProduits = 0;
 
 
     public function __construct()
@@ -110,5 +116,39 @@ class Rayon
     public function getProduits()
     {
         return $this->produits;
+    }
+
+    /**
+     * Set nbProduits
+     *
+     * @param integer $nbProduits
+     *
+     * @return Rayon
+     */
+    public function setNbProduits($nbProduits)
+    {
+        $this->nbProduits = $nbProduits;
+
+        return $this;
+    }
+
+    /**
+     * Get nbProduits
+     *
+     * @return integer
+     */
+    public function getNbProduits()
+    {
+        return $this->nbProduits;
+    }
+
+    public function increaseProduit()
+    {
+        $this->nbProduits++;
+    }
+
+    public function decreaseProduit()
+    {
+     $this->nbProduits--;
     }
 }

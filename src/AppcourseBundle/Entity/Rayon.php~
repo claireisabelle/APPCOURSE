@@ -37,6 +37,11 @@ class Rayon
     */
     protected $produits;
 
+    /**
+    * @ORM\Column(name="nb_produits", type="integer")
+    */
+    private $nbProduits = 0;
+
 
     public function __construct()
     {

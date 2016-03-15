@@ -1,11 +1,15 @@
 <?php
 namespace AppcourseBundle\Form\Type;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
@@ -14,32 +18,47 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use Doctrine\ORM\EntityRepository;
 
-class ProduitType extends AbstractType
+class ListeType extends AbstractType
 {
+
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('nom', TextType::class)
-            ->add('rayon', EntityType::class, array(
-            	'class' => 'AppcourseBundle:Rayon',
+            ->add('produits', EntityType::class, array(
+            	'class' => 'AppcourseBundle:Produit',
             	'choice_label' => 'nom',
             	'expanded' => true,
-            	'multiple' => false,
+            	'multiple' => true,
             	'required' => true,
             	'query_builder' => function (EntityRepository $er)
             	{
-            		return $er->createQueryBuilder('r')->orderBy('r.nom', 'ASC');
+            		return $er->createQueryBuilder('p')->orderBy('p.nom', 'ASC');
             	}
             	))
-            ->add('save', SubmitType::class, array('label' => 'Valider le produit'))
+            ->add('save', SubmitType::class, array('label' => 'Valider la liste'))
         ;
     }
 
 	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
 		$resolver->setDefaults(array(
-		'data_class' => 'AppcourseBundle\Entity\Produit'
+		'data_class' => 'AppcourseBundle\Entity\Liste'
 		));
 	}
+
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'AppcourseBundle\Entity\Liste'
+        ));
+    }
 }
 

@@ -5,11 +5,14 @@ namespace AppcourseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Produit
  *
  * @ORM\Table(name="cb_produit")
  * @ORM\Entity(repositoryClass="AppcourseBundle\Repository\ProduitRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Produit
 {
@@ -31,14 +34,17 @@ class Produit
 
 
     /**
-    *@ORM\ManyToOne(targetEntity="Rayon", inversedBy="produits")
+    * @ORM\ManyToOne(targetEntity="Rayon", inversedBy="produits")
+    * @Assert\NotBlank()
     */
     protected $rayon;
 
     /**
-    *@ORM\ManyToMany(targetEntity="Liste", inversedBy="produits")
+    * @ORM\ManyToMany(targetEntity="Liste", mappedBy="produits")
     */
     protected $listes;
+
+    
 
 
     public function __construct()
@@ -137,5 +143,22 @@ class Produit
     public function getListes()
     {
         return $this->listes;
+    }
+
+
+    /**
+    * @ORM\PrePersist
+    */
+    public function increase()
+    {
+        $this->getRayon()->increaseProduit();
+    }
+
+    /**
+    * @ORM\PreRemove
+    */
+    public function decrease()
+    {
+        $this->getRayon()->decreaseProduit();
     }
 }
