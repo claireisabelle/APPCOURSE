@@ -7,17 +7,24 @@ Supprimer un rayon existant à la base de données
 {% block body %}
 <h1><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Supprimer un rayon dans la base</h1>
 
-<div class="alert alert-danger">Souhaitez-vous vraiment supprimer le rayon {{ rayon.nom }} ?
 
-	<form method="post" action="{{ path('appcourse_delete_rayon', {'id': rayon.id}) }}">
+{% if not rayon.produits.empty %}
+	<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Le rayon ne peut être supprimé car un ou plusieurs produits y sont liés.</div>
+{% endif %}
 
-	<input type="submit" value="Supprimer le rayon" />
+{% if rayon.produits.empty %}
+	<div class="alert alert-danger"><p>Souhaitez-vous vraiment supprimer le rayon {{ rayon.nom }} ?</p>
 
-	{{ form_rest(form) }}
+		<form method="post" action="{{ path('appcourse_delete_rayon', {'id': rayon.id}) }}">
 
-	</form>
+		<input type="submit" value="Supprimer le rayon" />
 
-</div>
+		{{ form_rest(form) }}
+
+		</form>
+
+	</div>
+{% endif %}
 
 <p><a href="{{ path('appcourse_index_rayon') }}">Annuler et revenir à la page précédente</a></p>
 

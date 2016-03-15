@@ -1,0 +1,37 @@
+{% extends "AppcourseBundle::index.html.twig" %}
+
+{% block title %}
+Ajouter un produit à la base de données
+{% endblock %}
+
+{% block body %}
+<h1><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Ajouter un produit dans la base</h1>
+
+
+ 
+
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+	<p>{{ form_label(form.nom, 'Nom du produit', {'attr': {'class': 'validate'}}) }}
+	{{ form_widget(form.nom, {'attr': {'placeholder': 'Inscrire le nom du rayon'}}) }}</p>
+
+
+	<p>
+		{{ form_label(form.rayon, 'Rayon') }}<br />
+
+		{% for rayon in form.rayon %}
+		    {{ form_widget(rayon, {'attr': {'class': 'with-gap'}}) }}
+		    {{ form_label(rayon) }}
+		    <br />
+		{% endfor %}
+	</p>
+
+	{{ form_widget(form.save) }}
+
+{{ form_end(form) }}
+
+
+
+
+{% endblock %}

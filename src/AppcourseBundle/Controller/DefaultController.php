@@ -13,6 +13,7 @@ use AppcourseBundle\Entity\Produit;
 use AppcourseBundle\Entity\Rayon;
 
 use AppcourseBundle\Form\Type\RayonType;
+use AppcourseBundle\Form\Type\ProduitType;
 
 
 class DefaultController extends Controller
@@ -51,11 +52,40 @@ class DefaultController extends Controller
     public function produitIndexAction()
     {
     	// Permet de visualiser l'ensemble des produits
+
+        $em = $this->getDoctrine()->getManager();
+
+        $listProduits = $em->getRepository('AppcourseBundle:Produit')->findBy(array(), array('nom' => 'ASC'));
+
+        return $this->render('AppcourseBundle:produit:index.html.twig', array('listProduits' => $listProduits));
     }
 
-    public function produitAddAction()
+    public function produitAddAction(Request $request)
     {
     	// Permet d'ajouter un produit 
+
+        // On crée un nouveau produit
+        $produit = new Produit();
+
+        // On appelle le formulaire créé dans ProduitType
+        $form = $this->createForm(ProduitType::class, $produit);
+        $form->handleRequest($request);
+
+        // Si le formulaire a été soumis et est valide, on l'enregistre
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($produit);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('success', 'Le produit a bien été ajouté.');
+
+            return $this->redirectToRoute('appcourse_index_produit');
+        }
+
+        // Sinon, on affiche la page avec le formulaire d'ajout
+        return $this->render('AppcourseBundle:produit:add.html.twig', array('form' => $form->createView()));
+
     }
 
     public function produitEditAction($id)

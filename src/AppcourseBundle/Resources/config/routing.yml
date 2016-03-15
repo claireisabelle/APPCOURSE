@@ -29,3 +29,10 @@ appcourse_delete_rayon:
     requirements:
         id: \d+
 
+appcourse_index_produit:
+    path:    /produit 
+    defaults: { _controller: AppcourseBundle:Default:produitIndex }
+
+appcourse_add_produit:
+    path:    /produit/add 
+    defaults: { _controller: AppcourseBundle:Default:produitAdd }

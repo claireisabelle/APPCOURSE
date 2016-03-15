@@ -2,6 +2,8 @@
 
 namespace AppcourseBundle\Repository;
 
+use Doctrine\ORM\QueryBuilder;
+
 /**
  * ProduitRepository
  *
@@ -10,4 +12,16 @@ namespace AppcourseBundle\Repository;
  */
 class ProduitRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function produitAvecRayon()
+	{
+		$qb = $this
+			->createQueryBuilder('p')
+			->leftJoin('p.rayon', 'ray')
+			->addSelect('ray')
+			->orderBy('p.nom', 'ASC')
+		;
+
+		return $qb->getQuery()->getResult();
+	}
+
 }
