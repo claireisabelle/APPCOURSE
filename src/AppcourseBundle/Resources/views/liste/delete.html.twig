@@ -1,0 +1,27 @@
+{% extends "AppcourseBundle::index.html.twig" %}
+
+{% block title %}
+Supprimer une liste de courses
+{% endblock %}
+
+{% block body %}
+<h1><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Supprimer une liste de courses</h1>
+
+
+
+<div class="alert alert-danger"><p>Souhaitez-vous vraiment supprimer la liste "{{ liste.nom }}"" ?</p>
+
+	<form method="post" action="{{ path('appcourse_delete_liste', {'id': liste.id}) }}">
+
+	<input type="submit" value="Supprimer la liste" />
+
+	{{ form_rest(form) }}
+
+	</form>
+
+</div>
+
+
+<p><a href="{{ path('appcourse_homepage') }}">Annuler et revenir à la page précédente</a></p>
+
+{% endblock %}

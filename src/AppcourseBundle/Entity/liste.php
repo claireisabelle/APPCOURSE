@@ -41,6 +41,13 @@ class Liste
     * @ORM\ManyToMany(targetEntity="Produit", inversedBy="listes", cascade={"persist"})
     */
     protected $produits;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="commentaire", type="text", nullable=true)
+     */
+    private $commentaire;
 
 
     public function __construct()
@@ -140,5 +147,29 @@ class Liste
     public function getProduits()
     {
         return $this->produits;
+    }
+
+    /**
+     * Set commentaire
+     *
+     * @param string $commentaire
+     *
+     * @return Liste
+     */
+    public function setCommentaire($commentaire)
+    {
+        $this->commentaire = $commentaire;
+
+        return $this;
+    }
+
+    /**
+     * Get commentaire
+     *
+     * @return string
+     */
+    public function getCommentaire()
+    {
+        return $this->commentaire;
     }
 }

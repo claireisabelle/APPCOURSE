@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="cb_produit")
  * @ORM\Entity(repositoryClass="AppcourseBundle\Repository\ProduitRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Produit
 {
@@ -39,7 +40,7 @@ class Produit
     protected $rayon;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Liste", inversedBy="produits")
+    * @ORM\ManyToMany(targetEntity="Liste", mappedBy="produits")
     */
     protected $listes;
 
@@ -142,5 +143,22 @@ class Produit
     public function getListes()
     {
         return $this->listes;
+    }
+
+
+    /**
+    * @ORM\PrePersist
+    */
+    public function increase()
+    {
+        $this->getRayon()->increaseProduit();
+    }
+
+    /**
+    * @ORM\PreRemove
+    */
+    public function decrease()
+    {
+        $this->getRayon()->decreaseProduit();
     }
 }

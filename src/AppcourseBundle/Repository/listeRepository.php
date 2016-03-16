@@ -2,6 +2,9 @@
 
 namespace AppcourseBundle\Repository;
 
+
+use Doctrine\ORM\QueryBuilder;
+
 /**
  * ListeRepository
  *
@@ -10,4 +13,28 @@ namespace AppcourseBundle\Repository;
  */
 class ListeRepository extends \Doctrine\ORM\EntityRepository
 {
+
+public function findListe($id)
+{
+  $qb = $this->createQueryBuilder('l
+  	');
+
+  $qb
+    ->where('l.id = :id')
+    ->setParameter('id', $id)
+    ->leftJoin('l.produits', 'p')
+    ->addSelect('p')
+    ->leftJoin('p.rayon', 'r')
+    ->addSelect('r')
+    ->addOrderBy('r.nom', 'ASC')
+    ->addOrderBy('p.nom', 'ASC')
+	;
+
+  return $qb
+    ->getQuery()
+    ->getSingleResult()
+  ;
+}
+
+
 }

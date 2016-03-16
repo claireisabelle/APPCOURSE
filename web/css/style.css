@@ -26,5 +26,18 @@ h1
 	padding-bottom: 15px;
 }
 
+.rayon
+{
+	font-weight: bolder;
+	color: #004d40;
+	font-size: 1.3em;
+}
+
+.produit
+{
+	padding-left: 30px;
+	font-size: 1.1em;
+}
+
 
 

@@ -2,6 +2,8 @@
 
 namespace AppcourseBundle\Repository;
 
+use Doctrine\ORM\QueryBuilder;
+
 /**
  * RayonRepository
  *
@@ -10,4 +12,27 @@ namespace AppcourseBundle\Repository;
  */
 class RayonRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function findRayons($id)
+	{
+		$qb = $this->createQueryBuilder('r
+			');
+
+		$qb
+		->leftJoin('r.produits', 'p')
+		->addSelect('p')
+		->leftJoin('p.listes', 'l')
+		->addSelect('l')
+		->where('l.id = :id')
+		->setParameter('id', $id)
+		->addOrderBy('r.nom', 'ASC')
+		->addOrderBy('p.nom', 'ASC')
+		;
+
+		return $qb
+		->getQuery()
+		->getResult()
+		;
+	}
+
 }

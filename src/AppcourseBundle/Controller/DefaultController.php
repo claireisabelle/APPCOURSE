@@ -34,8 +34,19 @@ class DefaultController extends Controller
     public function viewAction(Request $request, $id)
     {
     	// Permet de visualiser une liste de courses selon son $id
+        $em = $this->getDoctrine()->getManager();
 
-    	return $this->render('AppcourseBundle:index.html.twig');
+        $liste = $em->getRepository('AppcourseBundle:Liste')->findListe($id);
+
+        if(!$liste)
+        {
+            throw $this->createNotFoundException('La liste n° '.$id.' est inconnue.');
+        }
+
+        $rayons = $em->getRepository('AppcourseBundle:Rayon')->findRayons($id);
+
+
+        return $this->render('AppcourseBundle:liste:view.html.twig', array('liste' => $liste, 'rayons' => $rayons));
     }
 
     public function addAction(Request $request)
@@ -68,11 +79,58 @@ class DefaultController extends Controller
     public function editAction(Request $request, $id)
     {
     	// Permet d'éditer une liste de courses
+
+        $em = $this->getDoctrine()->getManager();
+
+        $liste = $em->getRepository('AppcourseBundle:Liste')->find($id);
+
+        if(!$liste)
+        {
+            throw $this->createNotFoundException('La liste n° '.$id.' est inconnue.');
+        }
+
+        $form = $this->createForm(ListeType::class, $liste);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('success', 'La liste a bien été mise à jour.');
+
+            return $this->redirect($this->generateUrl('appcourse_view_liste', array('id' => $liste->getId())));
+        }
+
+        return $this->render('AppcourseBundle:liste:edit.html.twig', array('liste' => $liste, 'form' => $form->createView()));
+
     }
 
     public function deleteAction(Request $request, $id)
     {
     	// Permet de supprimer une liste de courses
+
+        $em = $this->getDoctrine()->getManager();
+
+        $liste = $em->getRepository('AppcourseBundle:Liste')->find($id);
+
+        if(!$liste)
+        {
+            throw $this->createNotFoundException('La liste n° '.$id.' est inconnue.');
+        }
+
+        $form = $this->createFormBuilder()->getForm();
+
+        if($form->handleRequest($request)->isValid())
+        {
+            $em->remove($liste);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('success', 'La liste a bien été supprimée.');
+
+            return $this->redirectToRoute('appcourse_homepage');
+        }
+
+        return $this->render('AppcourseBundle:liste:delete.html.twig', array('form' => $form->createView(), 'liste' => $liste));
     }
 
 

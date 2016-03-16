@@ -7,19 +7,23 @@ Supprimer un produit existant de la base de données
 {% block body %}
 <h1><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Supprimer un produit dans la base</h1>
 
+{% if not produit.listes.empty %}
+	<div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span> Le produit ne peut être supprimé car une ou plusieurs listes de courses y sont liées.</div>
+{% endif %}
 
+{% if produit.listes.empty %}
+	<div class="alert alert-danger"><p>Souhaitez-vous vraiment supprimer le produit {{ produit.nom }} ?</p>
 
-<div class="alert alert-danger"><p>Souhaitez-vous vraiment supprimer le produit {{ produit.nom }} ?</p>
+		<form method="post" action="{{ path('appcourse_delete_produit', {'id': produit.id}) }}">
 
-	<form method="post" action="{{ path('appcourse_delete_produit', {'id': produit.id}) }}">
+		<input type="submit" value="Supprimer le produit" />
 
-	<input type="submit" value="Supprimer le produit" />
+		{{ form_rest(form) }}
 
-	{{ form_rest(form) }}
+		</form>
 
-	</form>
-
-</div>
+	</div>
+{% endif %}
 
 
 <p><a href="{{ path('appcourse_index_produit') }}">Annuler et revenir à la page précédente</a></p>
