@@ -26,21 +26,21 @@ appcourse_delete_liste:
 
 appcourse_index_rayon:
     path:    /rayon
-    defaults: { _controller: AppcourseBundle:Default:rayonIndex }
+    defaults: { _controller: AppcourseBundle:Rayon:rayonIndex }
 
 appcourse_add_rayon:
     path:    /rayon/add 
-    defaults: { _controller: AppcourseBundle:Default:rayonAdd }
+    defaults: { _controller: AppcourseBundle:Rayon:rayonAdd }
 
 appcourse_edit_rayon:
     path:    /rayon/edit/{id}
-    defaults: { _controller: AppcourseBundle:Default:rayonEdit }
+    defaults: { _controller: AppcourseBundle:Rayon:rayonEdit }
     requirements:
         id: \d+
 
 appcourse_delete_rayon:
     path:    /rayon/delete/{id}
-    defaults: { _controller: AppcourseBundle:Default:rayonDelete }
+    defaults: { _controller: AppcourseBundle:Rayon:rayonDelete }
     requirements:
         id: \d+
 

@@ -2,7 +2,6 @@
 
 namespace AppcourseBundle\Repository;
 
-use Doctrine\ORM\QueryBuilder;
 
 /**
  * RayonRepository
