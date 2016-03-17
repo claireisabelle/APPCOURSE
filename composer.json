@@ -1,5 +1,6 @@
 {
     "name": "claire/appcourse",
+    "description": "Source code for appcourse",
     "license": "proprietary",
     "type": "project",
     "autoload": {
