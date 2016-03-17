@@ -63,3 +63,4 @@ appcourse_delete_produit:
     defaults: { _controller: AppcourseBundle:Default:produitDelete }
     requirements:
         id: \d+
+

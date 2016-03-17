@@ -24,4 +24,5 @@ class User extends BaseUser
 
         $this->roles = array('ROLE_USER');
     }
+    
 }
