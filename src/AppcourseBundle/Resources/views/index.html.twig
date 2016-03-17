@@ -34,6 +34,14 @@
 			<p class="center-align bouton"><a href="{{ path('appcourse_add_liste') }}" class="btn-floating btn-large waves-effect waves-light"><i class="material-icons">add</i></a></p>
 			<p class="center-align"><br /><a href="{{ path('appcourse_homepage') }}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Accueil</a></p>
 
+			{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+				<p class="center-align">Bonjour {{ app.user.username }}
+				<br />
+				<a href="{{ path('fos_user_security_logout') }}">Déconnexion</a></p>
+			{% else %}
+				<p class="center-align"><a href="{{ path('fos_user_security_login') }}">Connexion</a></p>
+			{% endif %}
+
 			<div class="parametres">
 				<p><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Paramètres</p>
 

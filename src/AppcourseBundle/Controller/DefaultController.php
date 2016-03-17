@@ -16,10 +16,15 @@ use AppcourseBundle\Form\Type\RayonType;
 use AppcourseBundle\Form\Type\ProduitType;
 use AppcourseBundle\Form\Type\ListeType;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 class DefaultController extends Controller
 {
 
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
     public function indexAction()
     {
         
@@ -30,7 +35,9 @@ class DefaultController extends Controller
         return $this->render('AppcourseBundle:liste:index.html.twig', array('listes' => $listes));
     }
 
-
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
     public function viewAction(Request $request, $id)
     {
     	// Permet de visualiser une liste de courses selon son $id
@@ -49,6 +56,9 @@ class DefaultController extends Controller
         return $this->render('AppcourseBundle:liste:view.html.twig', array('liste' => $liste, 'rayons' => $rayons));
     }
 
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
     public function addAction(Request $request)
     {
     	// Permet d'ajouter une liste de courses
@@ -76,6 +86,9 @@ class DefaultController extends Controller
         return $this->render('AppcourseBundle:liste:add.html.twig', array('form' => $form->createView()));
     }
 
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
     public function editAction(Request $request, $id)
     {
     	// Permet d'éditer une liste de courses
@@ -105,6 +118,9 @@ class DefaultController extends Controller
 
     }
 
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
     public function deleteAction(Request $request, $id)
     {
     	// Permet de supprimer une liste de courses
@@ -134,7 +150,9 @@ class DefaultController extends Controller
     }
 
 
-
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
     public function produitIndexAction()
     {
     	// Permet de visualiser l'ensemble des produits
@@ -146,6 +164,9 @@ class DefaultController extends Controller
         return $this->render('AppcourseBundle:produit:index.html.twig', array('listProduits' => $listProduits));
     }
 
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
     public function produitAddAction(Request $request)
     {
     	// Permet d'ajouter un produit 
@@ -174,6 +195,9 @@ class DefaultController extends Controller
 
     }
 
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
     public function produitEditAction(Request $request, $id)
     {
     	// Permet d'éditer un produit
@@ -207,6 +231,9 @@ class DefaultController extends Controller
 
     }
 
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
     public function produitDeleteAction(Request $request, $id)
     {
     	// Permet de supprimer un produit
@@ -239,7 +266,9 @@ class DefaultController extends Controller
     }
 
 
-
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
     public function rayonIndexAction()
     {
     	// Permet de visualiser l'ensemble des rayons
@@ -251,6 +280,9 @@ class DefaultController extends Controller
         return $this->render('AppcourseBundle:rayon:index.html.twig', array('listRayons' => $listRayons));
     }
 
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
     public function rayonAddAction(Request $request)
     {
     	// Permet d'ajouter un rayon
@@ -278,6 +310,9 @@ class DefaultController extends Controller
         return $this->render('AppcourseBundle:rayon:add.html.twig', array('form' => $form->createView()));
     }
 
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
     public function rayonEditAction(Request $request, $id)
     {
     	// Permet d'éditer un rayon
@@ -310,6 +345,9 @@ class DefaultController extends Controller
 
     }
 
+    /**
+    * @Security("has_role('ROLE_USER')")
+    */
     public function rayonDeleteAction(Request $request, $id)
     {
     	// Permet de supprimer un rayon
