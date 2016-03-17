@@ -25,5 +25,6 @@ class RayonType extends AbstractType
 		'data_class' => 'AppcourseBundle\Entity\Rayon'
 		));
 	}
-    
+
 }
+
