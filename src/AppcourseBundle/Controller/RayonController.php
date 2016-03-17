@@ -6,13 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 
-use AppcourseBundle\Entity\Liste;
-use AppcourseBundle\Entity\Produit;
 use AppcourseBundle\Entity\Rayon;
 
 use AppcourseBundle\Form\Type\RayonType;
-use AppcourseBundle\Form\Type\ProduitType;
-use AppcourseBundle\Form\Type\ListeType;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 

@@ -8,9 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use AppcourseBundle\Entity\Liste;
 use AppcourseBundle\Entity\Produit;
-use AppcourseBundle\Entity\Rayon;
 
-use AppcourseBundle\Form\Type\RayonType;
 use AppcourseBundle\Form\Type\ProduitType;
 use AppcourseBundle\Form\Type\ListeType;
 
